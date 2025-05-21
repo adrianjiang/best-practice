@@ -1,10 +1,58 @@
+import { useAppStore } from "./common";
 import "./styles.css";
+import Demo1Page from "./demos/demo1";
+import Demo2Page from "./demos/demo2";
+import Demo3Page from "./demos/demo3";
+import { useState } from "react";
+
+const demosList = [
+  {
+    name: "demo1",
+    component: Demo1Page,
+  },
+  {
+    name: "demo2",
+    component: Demo2Page,
+  },
+  {
+    name: "demo3",
+    component: Demo3Page,
+  },
+];
 
 export default function App() {
+  const activeTabKey = useAppStore((state) => state.activeTabKey);
+
+  const [activeDemoKey, setActiveDemoKey] = useState(activeTabKey);
+
+  const DemoComponent = demosList.find(
+    (demo) => demo.name === activeDemoKey
+  )?.component;
+
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
+      <div
+        style={{
+          display: "flex",
+          height: 60,
+          backgroundColor: "#ccc",
+          borderBottom: "1px solid #0e252f",
+        }}
+      >
+        {demosList.map((demo) => (
+          <button
+            key={demo.name}
+            onClick={() => {
+              setActiveDemoKey(demo.name);
+            }}
+          >
+            {demo.name}
+          </button>
+        ))}
+      </div>
+      <div style={{ height: "calc(100% - 60px)" }}>
+        {DemoComponent && <DemoComponent />}
+      </div>
     </div>
   );
 }
