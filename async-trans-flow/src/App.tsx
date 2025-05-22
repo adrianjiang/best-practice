@@ -3,6 +3,7 @@ import "./styles.css";
 import Demo1Page from "./demos/demo1";
 import Demo2Page from "./demos/demo2";
 import Demo3Page from "./demos/demo3";
+import Demo4Page from "./demos/demo4";
 import { useState } from "react";
 
 const demosList = [
@@ -17,6 +18,10 @@ const demosList = [
   {
     name: "demo3",
     component: Demo3Page,
+  },
+  {
+    name: "demo4",
+    component: Demo4Page,
   },
 ];
 
