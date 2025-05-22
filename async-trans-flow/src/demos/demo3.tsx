@@ -23,29 +23,29 @@ export default function Demo1() {
   const { activeTabKey } = useAppStore();
   const demoStore = useDemoStore((state) => state);
 
-  async function* handleTabChange(key: string) {
+  function* handleTabChange(key: string) {
     const time = new Date().getTime();
     const baseKey = `${key} - ${time}`;
     demoViewModule.updateState(key, {
       key: `${baseKey} - 1`,
       value: `${baseKey} - 1`,
     });
-    yield await delay(1000);
+    yield delay(1000);
     demoViewModule.updateState(key, {
       key: `${baseKey} - 2`,
       value: `${baseKey} - 2`,
     });
-    yield await delay(1000);
+    yield delay(1000);
     demoViewModule.updateState(key, {
       key: `${baseKey} - 3`,
       value: `${baseKey} - 3`,
     });
-    yield await delay(1000);
+    yield delay(1000);
     demoViewModule.updateState(key, {
       key: `${baseKey} - 4`,
       value: `${baseKey} - 4`,
     });
-    yield await delay(1000);
+    yield delay(1000);
 
     demoViewModule.updateState(key, {
       key: `${baseKey} - 4`,

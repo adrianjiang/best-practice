@@ -75,32 +75,30 @@ export function generateViewModule<T>(
 }
 
 export async function callAutoAbortFlow<K>(
-  gen: AsyncGenerator<any, void, any>
+  gen: Generator<Promise<unknown>, void, any>
 ) {
   const startTemp = getActiveTabTemp();
 
-  (async () => {
-    while (true) {
-      const { value, done } = await gen.next();
-      if (done) break;
+  while (true) {
+    const { value, done } = await gen.next();
+    if (done) break;
 
-      if (getActiveTabTemp() !== startTemp) {
-        console.log("abort - before");
+    if (getActiveTabTemp() !== startTemp) {
+      console.log("abort - before");
 
-        return;
-      }
-
-      // value 可能是 Promise（yield await delay）
-      // 也可能是同步值（yield demoViewModule.updateState）
-      await Promise.resolve(value);
-
-      if (getActiveTabTemp() !== startTemp) {
-        console.log("abort - after");
-
-        return;
-      }
-      // 如果你只想在“delay”那步停一下，可以：
-      // if (value instanceof Promise) { /* … */ }
+      return;
     }
-  })();
+
+    // value 可能是 Promise（yield await delay）
+    // 也可能是同步值（yield demoViewModule.updateState）
+    await Promise.resolve(value);
+
+    if (getActiveTabTemp() !== startTemp) {
+      console.log("abort - after");
+
+      return;
+    }
+    // 如果你只想在“delay”那步停一下，可以：
+    // if (value instanceof Promise) { /* … */ }
+  }
 }
