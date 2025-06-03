@@ -2,7 +2,7 @@ import { TabsLayout } from "../components/TabsLayout";
 import { delay, getActiveTabTemp, useAppStore } from "../common";
 import { useEffect } from "react";
 import { generateViewModule } from "../view-module";
-import { AppControllers } from "../common/asyncController";
+import { EventControllers } from "../common/asyncController/EventController";
 
 interface IDemoState {
   key: string;
@@ -25,19 +25,16 @@ export default function Demo1() {
   const demoStore = useDemoStore((state) => state);
 
   async function handleTabChange(key: string) {
-    const token = AppControllers.tabSwitchScene.createToken();
+    const controller = new EventControllers("tabSwitchScene");
+    const startTabTemp = getActiveTabTemp();
     const time = new Date().getTime();
     const baseKey = `${key} - ${time}`;
-    if (!AppControllers.tabSwitchScene.check(token)) {
-      console.log("skip");
-      return;
-    }
     demoViewModule.updateState(key, {
       key: `${baseKey} - 1`,
       value: `${baseKey} - 1`,
     });
     await delay(1000);
-    if (!AppControllers.tabSwitchScene.check(token)) {
+    if (!controller.check()) {
       console.log("skip");
 
       return;
@@ -47,7 +44,7 @@ export default function Demo1() {
       value: `${baseKey} - 2`,
     });
     await delay(1000);
-    if (!AppControllers.tabSwitchScene.check(token)) {
+    if (!controller.check()) {
       console.log("skip");
 
       return;
@@ -57,7 +54,7 @@ export default function Demo1() {
       value: `${baseKey} - 3`,
     });
     await delay(1000);
-    if (!AppControllers.tabSwitchScene.check(token)) {
+    if (!controller.check()) {
       console.log("skip");
 
       return;
@@ -86,6 +83,7 @@ export default function Demo1() {
         },
       ]}
     >
+      <div>symbol方案</div>
       <div>activeTabKey: {activeTabKey}</div>
 
       <div>demoStore.key: {demoStore.key}</div>

@@ -65,6 +65,7 @@ export default function Demo1() {
         },
       ]}
     >
+      <div>异常</div>
       <div>activeTabKey: {activeTabKey}</div>
 
       <div>demoStore.key: {demoStore.key}</div>

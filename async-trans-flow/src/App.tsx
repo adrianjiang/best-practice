@@ -4,8 +4,8 @@ import Demo1Page from "./demos/demo1";
 import Demo2Page from "./demos/demo2";
 import Demo3Page from "./demos/demo3";
 import Demo4Page from "./demos/demo4";
+import Demo5Page from "./demos/demo5";
 import { useState } from "react";
-
 const demosList = [
   {
     name: "demo1",
@@ -23,6 +23,10 @@ const demosList = [
     name: "demo4",
     component: Demo4Page,
   },
+  {
+    name: "demo5",
+    component: Demo5Page,
+  }
 ];
 
 export default function App() {

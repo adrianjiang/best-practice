@@ -71,6 +71,7 @@ export default function Demo1() {
         },
       ]}
     >
+      <div>Generator yieid方案</div>
       <div>activeTabKey: {activeTabKey}</div>
 
       <div>demoStore.key: {demoStore.key}</div>
